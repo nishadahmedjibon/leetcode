@@ -1,0 +1,12 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        std:: string s= to_string(x);
+        std:: string c=s;
+        std:: reverse(s.begin(), s.end());
+        if(s==c)
+        return true;
+        else
+        return false;
+    }
+};
