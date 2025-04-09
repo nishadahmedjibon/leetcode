@@ -1,0 +1,28 @@
+class Solution {
+public:
+    long long func(vector<int>& nums, long long mid)
+    {
+        long long cnt=0;
+        for(auto it: nums)
+        {
+            cnt+=ceil((double)(it)/(double)(mid));
+        }
+        return cnt;
+    }
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        long long low=1, high=*max_element(nums.begin(), nums.end());
+        
+        while(low<=high)
+        {
+            long long mid=(low+high)/2;
+            long long ans=func(nums, mid);
+            if(ans<=(long long)(threshold))
+            {
+                high=mid-1;
+            }
+            else
+                low=mid+1;
+        }
+        return low;
+    }
+};
