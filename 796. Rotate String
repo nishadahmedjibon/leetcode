@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string leftshift(string s, int shift)
+    {
+        int len=s.length();
+        shift=shift%len;
+        if(shift<0)
+            shift+=len;
+        string temp=s.substr(0,shift);
+        s.erase(0,shift);
+        s.append(temp);
+        return s;
+    }
+    bool rotateString(string s, string goal) {
+        if(s.size()!=goal.size())
+        return false;
+        int cnt=0;
+        for(int i=0; i<s.size(); i++)
+        {
+            if(leftshift(s,i)==goal)
+            return true;
+        }
+        
+        return false;
+        
+    }
+};
