@@ -1,0 +1,73 @@
+//problem Link: https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+this is bruteforce approach.
+TC O(n*n)
+
+int lengthOfLongestSubstring(string s)
+{
+    int maxlen=0;
+
+    for(int i=0; i<s.size(); i++)
+    {
+        int hash[256]={0};
+        int len=0;
+        for(int j=i; j<s.size(); j++)
+        {
+            //cout<<s[j]<<" ";
+            if(hash[s[j]]==0)
+            {
+                len++;
+                //cout<<len<<" ";
+                hash[s[j]]++;
+                if(maxlen<len)
+                    maxlen=len;
+
+            }
+            else
+            {
+                break;
+            }
+
+        }
+
+    }
+    return<<maxlen;
+}
+*/
+
+//2 pointers or sliding window. TC O(n), SC O(256)
+int lengthOfLongestSubstring(string s){
+    int l = 0, r = 0, maxlen = 0;
+    int has[256];
+    fill(has, has + 256, -1); // Properly initialize all elements to -1
+
+    while (r < s.size()) {
+        if (has[s[r]] != -1) {
+            l = max(has[s[r]] + 1, l);
+        }
+
+        has[s[r]] = r;
+        maxlen = max(maxlen, r - l + 1);
+        r++;
+    }
+    return maxlen;
+}
+int main()
+{
+    string s;
+    cin>>s;
+    cout<<lengthOfLongestSubstring(s);
+
+}
+
+/*
+Input: abcabcbb
+Output: 3
+
+Input: bbbbb
+Output: 1
+*/
