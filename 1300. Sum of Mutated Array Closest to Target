@@ -1,0 +1,49 @@
+/* Problem Link: https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/ */
+
+class Solution {
+public:
+    int count(vector<int>& arr, int value) {
+        int total = 0;
+        for (int num : arr) {
+            total += (num > value) ? value : num;
+        }
+        return total;
+    }
+
+    int findBestValue(vector<int>& arr, int target) {
+        int low = 0, high = *max_element(arr.begin(), arr.end());
+        int ans = 0, diff = INT_MAX;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int total = count(arr, mid);
+
+            if (abs(total - target) < diff || 
+               (abs(total - target) == diff && mid < ans)) {
+                ans = mid;
+                diff = abs(total - target);
+            }
+
+            if (total < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};
+
+
+/*
+Example 1:
+
+Input: arr = [4,9,3], target = 10
+Output: 3
+Explanation: When using 3 arr converts to [3, 3, 3] which sums 9 and that's the optimal answer.
+
+Example 2:
+
+Input: arr = [60864,25176,27249,21296,20204], target = 56803
+Output: 11361
+*/
