@@ -1,0 +1,29 @@
+problem link: https://leetcode.com/problems/sqrtx/description/
+
+solution: 
+class Solution {
+public:
+    int mySqrt(int x) {
+        long long low=0, high=x;
+        while(low<=high)
+        {
+            long long mid=(low+high)/2;
+            if(mid*mid==x)
+            return mid;
+            else if(mid*mid>x)
+            high=mid-1;
+            else
+            low=mid+1;
+        }
+        return high;
+    }
+};
+
+/*
+Solved by using Binary Search on Answers. The sqrt of a number lies between 0 to that number.
+Suppose, we've to find a sqrt of x.
+So, the range of answer is 0 to x.
+now, we'll use the binary search approach here.
+low=0 and high=x
+and continuously we'll find the mid, that follows the requirment.
+*/
