@@ -1,0 +1,18 @@
+problem link: https://leetcode.com/problems/beautiful-arrangement-ii/?envType=problem-list-v2&envId=math
+
+solution: 
+class Solution {
+public:
+    vector<int> constructArray(int n, int k) {
+        int left = 1, right = k+1;
+        vector<int> answer;
+        while (left <= right) {
+            answer.push_back(left++);
+            if (left <= right) 
+                answer.push_back(right--);
+        }
+        for (int i = k+2; i <= n; i++)
+            answer.push_back(i);
+        return answer;
+    }
+};
