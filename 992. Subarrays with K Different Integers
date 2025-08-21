@@ -1,0 +1,30 @@
+problem link: https://leetcode.com/problems/subarrays-with-k-different-integers/
+
+class Solution {
+public:
+    int find(vector<int>& nums, int k)
+    {
+        int left=0, right=0, counter=0;
+        map<int, int>mpp;
+        while(right<nums.size())
+        {
+            
+            mpp[nums[right]]++;
+            while(mpp.size()>k)
+            {
+                mpp[nums[left]]--;
+                if(mpp[nums[left]]==0)
+                    mpp.erase(nums[left]);
+                left=left+1;
+            }
+            counter=counter+(right-left+1);
+
+            right++;
+        }
+        return counter;
+    }
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        
+        return find(nums,k)-find(nums,k-1);
+    }
+};
