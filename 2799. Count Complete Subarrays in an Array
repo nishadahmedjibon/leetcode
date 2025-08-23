@@ -1,0 +1,32 @@
+problem link: https://leetcode.com/problems/count-complete-subarrays-in-an-array/description/
+
+class Solution {
+public:
+    int find(vector<int>& nums, int k)
+    {
+        int l=0, r=0, cnt=0;
+        map<int, int>mpp;
+        while(r<nums.size())
+        {
+            mpp[nums[r]]++;
+            while(mpp.size()>k)
+            {
+                mpp[nums[l]]--;
+                if(mpp[nums[l]]==0)
+                    mpp.erase(nums[l]);
+                l++;
+            }
+            cnt+=(r-l+1);
+            r++;
+        }
+        return cnt;
+    }
+    int countCompleteSubarrays(vector<int>& nums) {
+        map<int, int> mp;
+        for(int i=0; i<nums.size(); i++)
+            mp[nums[i]]++;
+        int a=mp.size();
+        return find(nums, a)-find(nums, a-1);
+        
+    }
+};
