@@ -1,0 +1,32 @@
+problem link: https://leetcode.com/problems/minimum-window-substring/
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int has[256]={0};
+        for(int i=0; i<t.size(); i++)
+            has[t[i]]++;
+        int l=0, r=0, cnt=0, minlen=INT_MAX,start=0,end=0;
+        while(r<s.size())
+        {
+            if(has[s[r]]>0)
+                cnt++;
+            has[s[r]]--;
+            while(cnt==t.size())
+            {
+                if(r-l+1 < minlen)
+                {
+                    minlen=r-l+1;
+                    start=l;
+                }
+                has[s[l]]++;
+                if(has[s[l]]>0)
+                    cnt--;
+                
+                l++;
+            }
+            r++;
+        }
+        return (minlen==INT_MAX)? "":s.substr(start, minlen);
+    }
+};
